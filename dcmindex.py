@@ -34,7 +34,7 @@ def main(argv):
       Rows = ds.get('Rows', 'not present')
       Columns = ds.get('Columns', 'not present')
       Rows = ds.get('Rows', 'not present')
-      NumberOfFrames = ds.get('NumberOfFrames', 0) > 1
+      NumberOfFrames = ds.get('NumberOfFrames', 0)
       RescaleType = ds.get('RescaleType', 'not present')
       ModalityLUTSequence = 'yes' if 'ModalityLUTSequence' in ds else 'not present'
       VOILUTFunction = ds.get('VOILUTFunction', 'not present')
