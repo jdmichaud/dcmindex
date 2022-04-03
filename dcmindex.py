@@ -22,10 +22,11 @@ def main(argv):
     sys.exit(1)
 
   pathToIndex = argv[1]
-  print('Modality,PhotometricInterpretation,PixelRepresentation,BitsAllocated,BitsStored,Rows,Columns,NumberOfFrames,RescaleType,ModalityLUTSequence,VOILUTFunction,VOILUTSequence,TransferSyntaxUID,PatientName,SOPInstanceUID,filename')
+  print('SOPClassUID,Modality,PhotometricInterpretation,PixelRepresentation,BitsAllocated,BitsStored,Rows,Columns,NumberOfFrames,RescaleType,ModalityLUTSequence,VOILUTFunction,VOILUTSequence,TransferSyntaxUID,PatientName,SOPInstanceUID,filename')
   for file in walk(pathToIndex):
     if pydicom.misc.is_dicom(file):
       ds = pydicom.dcmread(file)
+      SOPClassUID = ds.get('SOPClassUID', 'not present')
       Modality = ds.get('Modality', 'not present')
       PhotometricInterpretation = ds.get('PhotometricInterpretation', 'not present')
       PixelRepresentation = ds.get('PixelRepresentation', 'not present')
@@ -43,7 +44,7 @@ def main(argv):
       TransferSyntaxUID = ds.file_meta.get('TransferSyntaxUID', 'not present')
       SOPInstanceUID = ds.file_meta.get('SOPInstanceUID', 'not present')
       filename = file[len(pathToIndex):]
-      print(f'{Modality},{PhotometricInterpretation},{PixelRepresentation},{BitsAllocated},{BitsStored},{Rows},{Columns},{NumberOfFrames},{RescaleType},{ModalityLUTSequence},{VOILUTFunction},{VOILUTSequence},{TransferSyntaxUID},{PatientName},{SOPInstanceUID},{filename}')
+      print(f'{SOPClassUID},{Modality},{PhotometricInterpretation},{PixelRepresentation},{BitsAllocated},{BitsStored},{Rows},{Columns},{NumberOfFrames},{RescaleType},{ModalityLUTSequence},{VOILUTFunction},{VOILUTSequence},{TransferSyntaxUID},{PatientName},{SOPInstanceUID},{filename}')
 
 if __name__ == '__main__':
   main(sys.argv)
